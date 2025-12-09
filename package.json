@@ -1,0 +1,29 @@
+{
+  "name": "anime-frame-editor",
+  "version": "1.0.0",
+  "description": "Remove dead frames from anime clips",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "keywords": ["anime", "video", "editor"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@electron/rebuild": "^3.3.0",
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "build": {
+    "appId": "com.animeframeeditor.app",
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "files": [
+      "src/**/*",
+      "python/**/*"
+    ]
+  }
+}
