@@ -2,6 +2,9 @@
 node_modules/
 
 # Build output
+resources/ffmpeg/win/ffmpeg.exe
+resources/python-dist
+python/build
 dist/
 out/
 

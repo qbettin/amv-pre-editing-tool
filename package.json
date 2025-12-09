@@ -1,29 +1,54 @@
 {
   "name": "amv-pre-editing-tool",
   "version": "1.0.0",
-  "description": "Remove dead frames from anime clips",
+  "description": "Prepare AMV clips by removing dead frames and upscaling",
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder"
+    "build:python": "cd python && pyinstaller build.spec",
+    "build:setup": "node build-setup.js",
+    "build:app": "electron-builder",
+    "build": "npm run build:setup && npm run build:app",
+    "release": "npm run build && npm run upload-release"
   },
-  "keywords": ["anime", "video", "editor"],
-  "author": "Your Name",
+  "keywords": ["amv", "video", "editor", "anime", "edit", "tool", "dead", "frame"],
+  "author": "Quinten Bettin",
   "license": "MIT",
   "devDependencies": {
     "@electron/rebuild": "^3.3.0",
     "electron": "^27.0.0",
-    "electron-builder": "^24.6.4"
+    "electron-builder": "^24.6.4",
+    "fs-extra": "^11.1.1"
   },
   "build": {
-    "appId": "com.animeframeeditor.app",
+    "appId": "com.amvpreeditingtool.app",
+    "productName": "AMV Pre-Editing Tool",
+    "files": [
+      "src/**/*",
+      "!python/**/*",
+      "!resources/python-dist/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/",
+        "to": "resources/",
+        "filter": ["**/*"]
+      }
+    ],
     "win": {
       "target": "nsis",
       "icon": "build/icon.ico"
     },
-    "files": [
-      "src/**/*",
-      "python/**/*"
-    ]
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "YOUR_GITHUB_USERNAME",
+      "repo": "amv-pre-editing-tool"
+    }
   }
 }

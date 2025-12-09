@@ -72,12 +72,21 @@ ipcMain.handle('process-video', async (event, options) => {
   const { inputPath, outputDir, settings } = options;
   
   return new Promise((resolve, reject) => {
-    // Path to Python script
-    const pythonScript = path.join(__dirname, '..', 'python', 'frame_processor.py');
+    // Get bundled Python executable (Windows only)
+    const pythonExe = app.isPackaged
+      ? path.join(process.resourcesPath, 'resources', 'python-dist', 'frame_processor.exe')
+      : path.join(__dirname, '..', 'resources', 'python-dist', 'frame_processor.exe');
+    
+    // Get bundled FFmpeg (Windows only)
+    const ffmpegPath = app.isPackaged
+      ? path.join(process.resourcesPath, 'resources', 'ffmpeg', 'win', 'ffmpeg.exe')
+      : path.join(__dirname, '..', 'resources', 'ffmpeg', 'win', 'ffmpeg.exe');
+    
+    // Set FFmpeg path as environment variable
+    process.env.FFMPEG_BINARY = ffmpegPath;
     
     // Build arguments for Python script
     const args = [
-      pythonScript,
       '--input', inputPath,
       '--output', outputDir,
       '--mode', settings.mode,
@@ -86,7 +95,7 @@ ipcMain.handle('process-video', async (event, options) => {
     ];
 
     // Spawn Python process
-    const pythonProcess = spawn('python', args);
+    const pythonProcess = spawn(pythonExe, args);
 
     let outputData = '';
     let errorData = '';
