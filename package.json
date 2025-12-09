@@ -1,5 +1,5 @@
 {
-  "name": "anime-frame-editor",
+  "name": "amv-pre-editing-tool",
   "version": "1.0.0",
   "description": "Remove dead frames from anime clips",
   "main": "src/main.js",
