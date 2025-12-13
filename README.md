@@ -53,8 +53,7 @@ Run `pip install -r requirements.txt` from the root dir
 - all scenes would be processed as different files to a user specified locations and filename
 - with editable options for each scene, or apply to all options
 ### App Goals
-- runs its own python and ffmpeg
-- probably dockerized
+- runs its own python and ffmpeg (done i think)
 ### Deployment and Maintenance
 - CD/CI pipelines
 - figure out 'deployment'
