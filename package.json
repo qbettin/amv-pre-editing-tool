@@ -47,7 +47,7 @@
     },
     "publish": {
       "provider": "github",
-      "owner": "YOUR_GITHUB_USERNAME",
+      "owner": "qbettin",
       "repo": "amv-pre-editing-tool"
     }
   }
