@@ -3,8 +3,11 @@ name: Build and Release
 on:
   push:
     tags:
-      - 'v*.*.*'  # Triggers on version tags like v1.0.0
-  workflow_dispatch:  # Allows manual trigger
+      - 'v*.*.*'  # triggers on version tags like v1.0.0
+  workflow_dispatch:  # allows manual trigger
+
+permissions:
+  contents: write  # allows creating releases and uploading assets
 
 jobs:
   build:
