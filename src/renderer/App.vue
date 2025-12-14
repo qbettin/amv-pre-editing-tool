@@ -164,7 +164,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, toRaw } from 'vue'
+import { ref, computed } from 'vue'
 
 // State
 const inputPath = ref('')
@@ -217,7 +217,12 @@ const processVideo = async () => {
     const result = await (window as any).electronAPI.processVideo({
       inputPath: inputPath.value,
       outputDir: outputPath.value,
-      settings: settings.value
+        settings: {
+          mode: settings.value.mode,
+          threshold: settings.value.threshold,
+          minFrames: settings.value.minFrames
+      }
+
     })
 
     // Success
