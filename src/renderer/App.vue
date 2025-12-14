@@ -217,7 +217,12 @@ const processVideo = async () => {
     const result = await (window as any).electronAPI.processVideo({
       inputPath: inputPath.value,
       outputDir: outputPath.value,
-      settings: settings.value
+        settings: {
+          mode: settings.value.mode,
+          threshold: settings.value.threshold,
+          minFrames: settings.value.minFrames
+      }
+
     })
 
     // Success
