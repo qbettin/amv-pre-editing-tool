@@ -1,6 +1,6 @@
 {
   "name": "amv-pre-editing-tool",
-  "version": "2.0.0",
+  "version": "1.1.0",
   "description": "Prepare AMV clips by removing dead frames and upscaling",
   "main": "dist-electron/main.js",
   "scripts": {
