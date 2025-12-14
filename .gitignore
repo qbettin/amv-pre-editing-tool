@@ -2,6 +2,7 @@
 node_modules/
 
 # Build output
+dist-electron/
 resources/ffmpeg/win/ffmpeg.exe
 resources/python-dist
 python/build
