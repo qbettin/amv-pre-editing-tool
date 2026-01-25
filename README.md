@@ -25,7 +25,7 @@ Run `pip install -r requirements.txt` from the root dir
 - this should also run `npm install`, but if it doesn't run that now
 
 ### Starting it
-- run `npm start` thats it!
+- run `npm run dev` thats it!
 
 ## Building the executable
 ### Setup
