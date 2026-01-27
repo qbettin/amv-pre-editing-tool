@@ -95,28 +95,31 @@ class FrameProcessor:
         # Return True if difference exceeds threshold
         return mean_diff > self.threshold
     
-    def process_video(self, input_path, output_dir):
+    def process_video(self, input_path, output_dir, output_name=None):
         """
         Main processing function
         Reads video, detects dead frames, and outputs cleaned video
         """
         print(f"Opening video: {input_path}")
         cap = cv2.VideoCapture(input_path)
-        
+
         if not cap.isOpened():
             raise Exception("Could not open video file")
-        
+
         # Get video properties
         fps = int(cap.get(cv2.CAP_PROP_FPS))
         width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-        
+
         print(f"Video info: {width}x{height} @ {fps}fps, {total_frames} frames")
-        
+
         # Setup output
-        input_filename = Path(input_path).stem
-        output_path = os.path.join(output_dir, f"{input_filename}_processed.mp4")
+        if output_name:
+            output_path = os.path.join(output_dir, f"{output_name}.mp4")
+        else:
+            input_filename = Path(input_path).stem
+            output_path = os.path.join(output_dir, f"{input_filename}_processed.mp4")
         
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
@@ -199,7 +202,9 @@ def main():
                         help='Motion detection threshold')
     parser.add_argument('--min-frames', type=int, default=1,
                         help='Minimum frames to keep per scene')
-    
+    parser.add_argument('--output-name', default=None,
+                        help='Custom output filename (without extension)')
+
     args = parser.parse_args()
     
     try:
@@ -209,7 +214,7 @@ def main():
             min_frames=args.min_frames
         )
         
-        processor.process_video(args.input, args.output)
+        processor.process_video(args.input, args.output, args.output_name)
         
     except Exception as e:
         print(f"ERROR: {str(e)}", file=sys.stderr)
